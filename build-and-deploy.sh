@@ -40,7 +40,7 @@ function Help {
 \t\t[ -s | --shell ]
 \t\t[ -p | --push2ecr ]
 \t\t[ -l | --set-lambda2use ]
-\t\t[ -a | --all (Defauult, does not include execute) ]
+\t\t[ -a | --all (Default, does not include execute) ]
 \t\t[Container Directory]
 
 \t\t[-D | --debug] 
