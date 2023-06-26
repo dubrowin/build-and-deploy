@@ -233,27 +233,3 @@ if [ "$SETLAM" == "Y" ]; then
 	SetLambda2UseECR
 fi
 
-################################
-## Notes
-################################
-## From https://gist.github.com/kuntao/1fb71b5e5ec2fbbcdccf3773b0ede50e
-#REPOSITORY=[[[[[ecr_registrory_name]]]]]
-#IMAGE=$REPOSITORY:latest
-#AWS_REGION=[[[[[your_region]]]]]
-
-# docker login
-#aws ecr get-login --region $AWS_REGION
-
-# docker build
-#docker build -t $IMAGE .
-
-# push先のレポジトリ
-#REMOTE_REPOSITORY=`aws ecr describe-repositories | jq -r '.repositories | map(select(.repositoryName == $REPOSITORY))[0] | .repositoryUri'`
-
-# docker tag. なんかタグ付けてる
-#docker tag $IMAGE $REMOTE_REPOSITORY
-
-# docker push
-#docker push $REMOTE_REPOSITORY
-
-## Maybe this one is better https://blog.skbali.com/2020/05/build-and-push-docker-image-to-amazon-ecr/
