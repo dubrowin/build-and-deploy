@@ -1,7 +1,7 @@
 # build-and-deploy
 A Bash Script to build and deploy Docker Containers to ECR and to update Lambda to use the latest version
 
-I was playing with creating Docker Containers for use in Lambda as explained in the article [AWS Lambda for the containers developer] (https://aws.amazon.com/blogs/containers/aws-lambda-for-the-containers-developer/). However, I needed to be able to iterate quickly, so I built this script to perform the tasks I needed to run on a regular basis.
+I was playing with creating Docker Containers for use in Lambda as explained in the article <A HREF="https://aws.amazon.com/blogs/containers/aws-lambda-for-the-containers-developer/">AWS Lambda for the containers developer</A>. However, I needed to be able to iterate quickly, so I built this script to perform the tasks I needed to run on a regular basis.
 
 ## Usage
 
