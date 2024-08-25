@@ -28,6 +28,7 @@ PUSH=""
 SETLAM=""
 DEBUG="Y"
 BASEDIR="/home/$USER"
+ACCOUNTID="$( TOKEN=`curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`  && curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http:/    /169.254.169.254/latest/dynamic/instance-identity/document  | grep -i accountid | cut -d \" -f 4 )"
 
 ################################
 ## Functions
@@ -88,22 +89,22 @@ function BuildDocker {
 	docker build -f $DOCKERFILE -t $CONTAINER .
 
 	# Tag as Latest
-	docker tag ${CONTAINER}:latest 524365920037.dkr.ecr.us-east-2.amazonaws.com/${CONTAINER}:latest
+	docker tag ${CONTAINER}:latest $ACCOUNTID.dkr.ecr.us-east-2.amazonaws.com/${CONTAINER}:latest
 
 	cd -
 }
 
 function PushDocker2ECR {
 	# ECR Credentials
-	aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 524365920037.dkr.ecr.us-east-2.amazonaws.com && echo "Login Successful" || echo "ERROR: Logging In"
+	aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $ACCOUNTID.dkr.ecr.us-east-2.amazonaws.com && echo "Login Successful" || echo "ERROR: Logging In"
 
 	# Push to ECR
-	docker push 524365920037.dkr.ecr.us-east-2.amazonaws.com/${CONTAINER}:latest
+	docker push $ACCOUNTID.dkr.ecr.us-east-2.amazonaws.com/${CONTAINER}:latest
 }
 
 function SetLambda2UseECR {
 	## Update Lambda to use Latest ECR
-	ECR_REPO_FUNCTION_PREFIX="524365920037.dkr.ecr.us-east-2.amazonaws.com/${CONTAINER}"
+	ECR_REPO_FUNCTION_PREFIX="$ACCOUNTID.dkr.ecr.us-east-2.amazonaws.com/${CONTAINER}"
 
 	LAMBDA=`cat $BASEDIR/$CONTAINER/lambda-function.txt`
 	Debug "Pushing $CONTAINER to be used by $LAMBDA"
